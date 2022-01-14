@@ -5,12 +5,33 @@ public class Film {
     String  NomRealisateur;
     String  AnneeRealisation;
     String  Description ;
+    float  Prix;
+    float  Duree;
 
-    public Film(String titre, String nomRealisateur, String anneeRealisation, String description) {
+    public float getPrix() {
+        return Prix;
+    }
+
+    public void setPrix(float prix) {
+        Prix = prix;
+    }
+
+
+    public Film(String titre, String nomRealisateur, String anneeRealisation, String description, float prix, float duree) {
         Titre = titre;
         NomRealisateur = nomRealisateur;
         AnneeRealisation = anneeRealisation;
         Description = description;
+        Prix = prix;
+        Duree = duree;
+    }
+
+    public float getDuree() {
+        return Duree;
+    }
+
+    public void setDuree(float duree) {
+        Duree = duree;
     }
 
     public String getTitre() {

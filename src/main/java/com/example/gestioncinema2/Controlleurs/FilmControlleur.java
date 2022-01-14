@@ -93,6 +93,8 @@ public class FilmControlleur extends ConnexionBD implements IFilm {
                 F.setTitre(RS.getString(1));
                 F.setNomRealisateur(RS.getString(2));
                 F.setAnneeRealisation(RS.getString(3));
+                F.setDuree(RS.getFloat(5));
+                F.setPrix(RS.getFloat(6));
                 LsFilm.add(F);
             }
         }catch (Exception E){
