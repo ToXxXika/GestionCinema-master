@@ -6,6 +6,8 @@ import com.example.gestioncinema2.Interfaces.IPersonne;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PersonneControlleur extends ConnexionBD implements IPersonne {
 
@@ -67,6 +69,32 @@ public class PersonneControlleur extends ConnexionBD implements IPersonne {
            return Resultat;
     }
 
+    @Override
+    public String GetRole(String cin) throws SQLException {
+        String x="";
+        String GetRole="Select Role from personne where CIN="+cin;
+        ResultSet sql = conn.createStatement().executeQuery(GetRole);
+        if(sql.next())
+        x= sql.getString("Role");
+      return x ;
+    }
+
+    @Override
+    public List<Personne> GetAllUsers() throws SQLException {
+        List<Personne> Ls = new ArrayList<>();
+        String sql= "Select * from personne ";
+        ResultSet Rs = conn.createStatement().executeQuery(sql);
+        while (Rs.next()){
+            Personne P = new Personne();
+            P.setCIN(Rs.getString(2));
+            P.setPrenom(Rs.getString(5));
+            P.setNom(Rs.getString(4));
+            P.setRole(Rs.getString(6));
+            Ls.add(P);
+        }
+        return Ls;
+    }
+
     public String HashPassword(String password) throws NoSuchAlgorithmException {
         String generatedPassword=null;
         MessageDigest md =MessageDigest.getInstance("MD5");
@@ -80,4 +108,6 @@ public class PersonneControlleur extends ConnexionBD implements IPersonne {
 
         return generatedPassword;
     }
+
+
 }
