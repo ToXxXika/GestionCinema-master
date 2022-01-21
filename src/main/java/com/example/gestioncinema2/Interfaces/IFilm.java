@@ -11,4 +11,5 @@ public interface IFilm {
     boolean ModifierFilm(Film FS)throws SQLException;
     List<Film> TousLesFilms() throws SQLException;
     Film RechercherFilm(String titre) throws SQLException;
+    List<Film> GetFilmsBySeance() throws SQLException;
 }

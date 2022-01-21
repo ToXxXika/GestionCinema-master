@@ -8,7 +8,7 @@ module com.example.gestioncinema2 {
     requires java.sql;
     requires java.desktop;
     requires java.logging;
-
+    requires mail;
     opens com.example.gestioncinema2 to javafx.fxml;
     exports com.example.gestioncinema2;
 }

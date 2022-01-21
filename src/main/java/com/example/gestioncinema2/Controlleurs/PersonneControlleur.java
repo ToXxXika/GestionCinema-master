@@ -32,6 +32,7 @@ public class PersonneControlleur extends ConnexionBD implements IPersonne {
         return Result ;
     }
 
+
     @Override
     public boolean SignIn(Personne P) throws SQLException, NoSuchAlgorithmException {
         boolean Resultat = true ;
@@ -90,9 +91,27 @@ public class PersonneControlleur extends ConnexionBD implements IPersonne {
             P.setPrenom(Rs.getString(5));
             P.setNom(Rs.getString(4));
             P.setRole(Rs.getString(6));
+            P.setIdP(Rs.getInt(1));
+            P.setMail(Rs.getString(7));
+
             Ls.add(P);
         }
         return Ls;
+    }
+
+    @Override
+    public boolean Reserver(int idPersonne, int NumSeance) throws SQLException {
+        String sql = "insert into reservation (idPersonne,NumSeance) values (?,?)";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1,idPersonne);
+        ps.setInt(2,NumSeance);
+         int i = ps.executeUpdate();
+         if(i>0){
+             System.out.println("le Film est Reservé");
+             return  true;
+         }else {
+             return  false ;
+         }
     }
 
     public String HashPassword(String password) throws NoSuchAlgorithmException {

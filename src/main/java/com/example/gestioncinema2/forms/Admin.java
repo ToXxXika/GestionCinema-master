@@ -78,7 +78,7 @@ public class Admin extends javax.swing.JFrame {
                 "Nom film", "Nom realisateur", "Annee ", "Description"
             }
         ) {
-            Class[] types = new Class [] {
+            final Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Long.class
             };
 
@@ -165,7 +165,7 @@ public class Admin extends javax.swing.JFrame {
                 "Id personne", "Nom", "Prenom", "CIN", "Role"
             }
         ) {
-            Class[] types = new Class [] {
+            final Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
 
@@ -245,8 +245,8 @@ public class Admin extends javax.swing.JFrame {
     private void jPanel1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentShown
         FilmControlleur FC = new FilmControlleur();
         List<Film> Ls = FC.TousLesFilms();
-        String Columns[] ={"Titre","NomRealisateur","AnneeRealisation","Description"};
-        String Data[][]= new String[100][100];
+        String[] Columns ={"Titre","NomRealisateur","AnneeRealisation","Description"};
+        String[][] Data = new String[100][100];
         int i =0;
         for (Film F:Ls) {
             Data[i][0]=F.getTitre();
@@ -270,7 +270,7 @@ public class Admin extends javax.swing.JFrame {
     private void jPanel2ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel2ComponentShown
         PersonneControlleur PC = new PersonneControlleur();
         List<Personne> LSP = new ArrayList<>();
-        String Data[][]= new String[100][100];
+        String[][] Data = new String[100][100];
         try {
             LSP = PC.GetAllUsers();
 
@@ -294,7 +294,7 @@ public class Admin extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

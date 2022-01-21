@@ -1,12 +1,27 @@
 package com.example.gestioncinema2.Classes;
 
+
 public class Personne {
+
     Integer idP ;
     String CIN ;
     String Password ;
     String Prenom ;
     String nom ;
     String Role ;
+    String Mail ;
+
+    public String getMail() {
+        return Mail;
+    }
+
+    public void setMail(String mail) {
+        Mail = mail;
+    }
+
+    public void setIdP(Integer idP) {
+        this.idP = idP;
+    }
 
     public String getRole() {
         return Role;
@@ -32,12 +47,13 @@ public class Personne {
         this.nom = nom;
     }
 
-    public Personne(String CIN, String password, String prenom, String nom, String role) {
+    public Personne(String CIN, String password, String prenom, String nom, String role, String mail) {
         this.CIN = CIN;
         Password = password;
         Prenom = prenom;
         this.nom = nom;
         Role = role;
+        Mail = mail;
     }
 
     public Personne() {

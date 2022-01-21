@@ -120,4 +120,26 @@ public class FilmControlleur extends ConnexionBD implements IFilm {
             return F ;
         }
     }
+
+    @Override
+    public List<Film> GetFilmsBySeance() throws SQLException {
+        String getFilmBySeance = "select * from film where exists (select * from seance where seance.Film=film.titre)";
+        List<Film> LsFilm = new ArrayList<>();
+        Statement S = con.createStatement();
+        ResultSet RS = S.executeQuery(getFilmBySeance);
+        if(!RS.next()){
+            System.out.println("Aucun Film est disponible pour la reservation ");
+            return null;
+        }else {
+            Film F = new Film();
+            F.setDescription(RS.getString(4));
+            F.setTitre(RS.getString(1));
+            F.setNomRealisateur(RS.getString(2));
+            F.setAnneeRealisation(RS.getString(3));
+            F.setDuree(RS.getFloat(5));
+            F.setPrix(RS.getFloat(6));
+            LsFilm.add(F);
+        }
+        return LsFilm;
+    }
 }

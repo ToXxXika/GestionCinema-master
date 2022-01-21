@@ -6,6 +6,7 @@ import com.example.gestioncinema2.ConnexionBD;
 import com.example.gestioncinema2.Interfaces.ISalle;
 
 import java.sql.*;
+import java.util.List;
 
 public class SalleControlleur extends ConnexionBD implements ISalle {
 
@@ -44,5 +45,26 @@ public class SalleControlleur extends ConnexionBD implements ISalle {
         }else Resultat=false;
 
         return Resultat ;
+    }
+
+    @Override
+    public boolean updateSalle(int idSalle, int NbrPlaces) throws SQLException {
+        String updateSalle= "UPDATE Salle SET NbrPlaces=? WHERE NumeroSalle=?";
+        PreparedStatement PS = con.prepareStatement(updateSalle);
+        PS.setInt(2,idSalle);
+        PS.setInt(1,NbrPlaces);
+        int i = PS.executeUpdate();
+        if(i>0){
+            System.out.println("Mise a jour terminee");
+            return true ;
+        }else {
+            return false ;
+        }
+
+    }
+
+    @Override
+    public List<Salle> GetSalles() throws SQLException {
+        return null;
     }
 }

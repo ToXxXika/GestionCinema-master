@@ -76,23 +76,24 @@ public class SeanceControlleur extends ConnexionBD implements ISeance {
     @Override
     public List<Seance> AllSeances() throws SQLException {
         List<Seance> LS = new ArrayList<>();
-        String GetSeances = "select * from seance";
-        Statement S = con.createStatement();
-        ResultSet RS = S.executeQuery(GetSeances);
-         if(RS.next()== false ){
-             System.out.println("Table Seance vide");
-             return null ;
-         }else{
-             while(RS.next()){
-                 Seance SS = new Seance();
-                 SS.setNumSeance(RS.getInt(1));
-                 SS.setDateHeure(RS.getString(2));
-                 SS.setIdSalle(RS.getInt(3));
-                 SS.setTarif(RS.getString(4));
-                 SS.setTitreFilm(RS.getString(5));
-                 LS.add(SS);
-             }
+        try {
+            String GetSeances = "select * from seance";
+            Statement S = con.createStatement();
+            ResultSet RS = S.executeQuery(GetSeances);
+                while (RS.next()) {
+                    Seance SS = new Seance();
+                    SS.setNumSeance(RS.getInt(1));
+                    SS.setDateHeure(RS.getString(3));
+                    SS.setIdSalle(RS.getInt(4));
+                    SS.setTarif(RS.getString(5));
+                    SS.setTitreFilm(RS.getString(2));
+                    LS.add(SS);
+
+            }
+        }catch (Exception E){
+            System.out.println(E.getMessage());
+        }
              return LS ;
          }
     }
-}
+

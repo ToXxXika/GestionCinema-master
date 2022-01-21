@@ -16,11 +16,11 @@ public class Seance extends Film {
     String tarif;
 
     public String getTarif() {
-        return tarif.toString();
+        return tarif;
     }
 
     public void setTarif(String tarif) {
-        this.tarif = tarif.toString();
+        this.tarif = tarif;
     }
     public Integer getNumSeance() {
         return NumSeance;

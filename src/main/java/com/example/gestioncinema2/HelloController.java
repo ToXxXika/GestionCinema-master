@@ -67,7 +67,7 @@ public class HelloController {
 
     public void SignIn(ActionEvent actionEvent) throws IOException {
        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Inscription.fxml"));
-        Parent root = (Parent) fxmlLoader.load();
+        Parent root = fxmlLoader.load();
         Stage stage = new Stage();
         stage.setTitle("Inscription");
         stage.setScene(new Scene(root));

@@ -6,11 +6,25 @@
 package com.example.gestioncinema2.forms;
 
 import com.example.gestioncinema2.Classes.Film;
+import com.example.gestioncinema2.Classes.Personne;
+import com.example.gestioncinema2.Classes.Seance;
 import com.example.gestioncinema2.Controlleurs.FilmControlleur;
+import com.example.gestioncinema2.Controlleurs.PersonneControlleur;
+import com.example.gestioncinema2.Controlleurs.SalleControlleur;
+import com.example.gestioncinema2.Controlleurs.SeanceControlleur;
 
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.io.File;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+import javax.mail.*;
 
 /**
  *
@@ -77,7 +91,7 @@ public class Films extends javax.swing.JFrame {
                 "Nom film", "Duree", "Prix"
             }
         ) {
-            Class[] types = new Class [] {
+            final Class[] types = new Class [] {
                 java.lang.String.class, java.lang.Float.class, java.lang.Object.class
             };
 
@@ -121,6 +135,11 @@ public class Films extends javax.swing.JFrame {
         jScrollPane2.setViewportView(DescTxt);
 
         ResBtn.setText("Reserver");
+        ResBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ResBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -211,21 +230,58 @@ public class Films extends javax.swing.JFrame {
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         FilmControlleur FC = new FilmControlleur();
-        List<Film> Ls = FC.TousLesFilms();
-        String Columns[] ={"Titre","Duree","Prix"};
-        String Data[][]= new String[100][100];
-        int i =0;
-        for (Film F:Ls) {
-            Data[i][0]=F.getTitre();
-            System.out.println(F.getDuree());
-            Data[i][1]=String.valueOf(F.getDuree());
-            Data[i][2]=F.getPrix()+"";
-            i++;
+        List<Film> Ls = null;
+        String[] Columns ={"Titre","Duree","Prix"};
+        String[][] Data = new String[100][100];
+        try {
+            Ls = FC.GetFilmsBySeance();
+
+            int i =0;
+            for (Film F:Ls) {
+                Data[i][0]=F.getTitre();
+                System.out.println(F.getDuree());
+                Data[i][1]=String.valueOf(F.getDuree());
+                Data[i][2]=F.getPrix()+"";
+                i++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
         DefaultTableModel DTM = new DefaultTableModel(Data,Columns);
         jTable1.setModel(DTM);
     }//GEN-LAST:event_formComponentShown
 
+    public static void SendMail(String mail){
+        final String username="mabrouki552";  // partie 9bal xyz@gmail.com
+        final String password="gdd^T&S&R=8s\\N/t";
+        String from ="mabrouki552@gmail.com";
+        String to = mail ;
+        String host = "localhost";
+        Properties properties = new Properties();
+        properties.put("mail.smtp.host",host);
+       // properties.put("mail.smtp.port","8080");
+        properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        properties.put("mail.smtp.auth","true");
+        properties.put("mail.smtp.starttls.enable","true");
+        Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username,password);
+            }
+        });
+        try{
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(from));
+            message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));
+            message.setSubject("Bienvenue dans notre Cinema");
+            message.setText("Hello sir !");
+            Transport.send(message);
+            System.out.println("WEREREREREY");
+        }catch (Exception E ){
+            System.out.println(E.getMessage());
+        }
+    }
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         DefaultTableModel tbl = (DefaultTableModel) jTable1.getModel();
         String Titre =tbl.getValueAt(jTable1.getSelectedRow(),0).toString();
@@ -255,10 +311,88 @@ public class Films extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTable1MouseClicked
 
+    private void ResBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResBtnActionPerformed
+        SeanceControlleur SC = new SeanceControlleur();
+        SalleControlleur SalleC = new SalleControlleur();
+        PersonneControlleur PC = new PersonneControlleur();
+         List<Seance> LS ;
+         List<Seance> LS2 = new ArrayList<>();
+         List<Personne> LP = new ArrayList<>();
+        try {
+            LS =SC.AllSeances();
+            for (Seance seance: LS) {
+                if(seance.getTitreFilm().equals(TitreTxt.getText())){
+                    System.out.println(seance.getTitreFilm());
+                    LS2.add(seance);
+                }
+            }
+           for(int i=0;i<LS2.size();i++){
+               //TODO: maybe this is wrong i'll check it later
+               String CIN = JOptionPane.showInputDialog("Entrez votre CIN svp ");
+               LP = PC.GetAllUsers();
+               for (Personne p : LP) {
+                     do{
+
+                         if(p.getCIN().equals(CIN)){
+                             if((SalleC.RechercherSalle(LS2.get(i).getIdSalle()).getNbrPlaces()>0)&&(SalleC.RechercherSalle(LS2.get(i).getIdSalle()).isStatut()==true)){
+                                 String result = JOptionPane.showInputDialog("Combien de places vous allez reservez ?");
+                                 if(SalleC.RechercherSalle(LS2.get(i).getIdSalle()).getNbrPlaces()>Integer.parseInt(result)){
+                                     //TODO : mise a jour pour le nombre de salle dans la table salle
+                                     int NbrPlace =   SalleC.RechercherSalle(LS2.get(i).getIdSalle()).getNbrPlaces()-Integer.parseInt(result);         //Nouveau nombre de places
+                                     System.out.println("idPersonne"+p.getIdP());
+                                     if( (PC.Reserver(p.getIdP(),LS2.get(i).getNumSeance())))
+                                     {
+                                         if( SalleC.updateSalle(SalleC.RechercherSalle(LS2.get(i).getIdSalle()).getNumeroSalle(),NbrPlace)){
+                                             JOptionPane.showMessageDialog(null,"Reservation est terminée avec success","Confirmation",1);
+                                             try {
+                                                 System.out.println(p.getMail());
+                                                 SendMail(p.getMail());
+                                                 Thread.sleep(2000);
+                                                 JOptionPane.showMessageDialog(null,"Mail envoyé");
+                                             } catch (InterruptedException e) {
+                                                 e.printStackTrace();
+                                             }
+                                         }
+                                     }
+                                 }
+                                 break;
+                             }
+                         }
+                     }while (!p.getCIN().equals(CIN));
+               }
+           }
+            JFrame f ;
+            JTable j;
+            f = new JFrame();
+            f.setTitle("Seances Disponibles");
+            String[] columns={"Nom Film, DateHeure,Salle"};
+            String[][] data = new String[10][10];
+            int i=0;
+            for (Seance T:LS2) {
+                System.out.println("T:"+T.getTitreFilm());
+                data[i][0]=T.getTitre();
+                data[i][1]=T.getDateHeure();
+                data[i][2]=""+T.getIdSalle();
+                data[i][4]="TEST BUTTON";
+                i++;
+            }
+            j = new JTable(data,columns);
+            j.setBounds(30,40,200,300);
+            JScrollPane sp = new JScrollPane(j);
+            f.add(sp);
+            f.setSize(500,200);
+            f.setVisible(true);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_ResBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

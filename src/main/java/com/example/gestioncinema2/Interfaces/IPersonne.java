@@ -13,4 +13,5 @@ public interface IPersonne {
    boolean verifUser(String cin) throws SQLException;
    String GetRole(String cin) throws  SQLException ;
    List<Personne> GetAllUsers() throws SQLException;
+   boolean Reserver(int idPersonne ,int NumSeance) throws SQLException ;
 }
