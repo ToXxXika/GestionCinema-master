@@ -9,12 +9,13 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
+    <content url="jar://$MODULE_DIR$/../mysql-connector-java-5.1.15.jar!/" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../mysql-connector-java-5.1.15-bin.jar!/" />
+          <root url="jar://$USER_HOME$/mysql-connector-java-5.1.15-bin.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
