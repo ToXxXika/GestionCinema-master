@@ -138,7 +138,7 @@ public class Films extends javax.swing.JFrame {
                 "Nom film", "Duree", "Prix"
             }
         ) {
-            Class[] types = new Class [] {
+            final Class[] types = new Class [] {
                 java.lang.String.class, java.lang.Float.class, java.lang.Object.class
             };
 

@@ -11,6 +11,7 @@ import com.example.gestioncinema2.Classes.Personne;
 import com.example.gestioncinema2.Controlleurs.FilmControlleur;
 import com.example.gestioncinema2.Controlleurs.PersonneControlleur;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.sql.SQLException;
@@ -43,8 +44,8 @@ public class Admin extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        AjouterBtn = new javax.swing.JButton();
+        SupprimerBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -93,18 +94,23 @@ public class Admin extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 204, 51));
         jLabel1.setText("Liste des films");
 
-        jButton1.setBackground(new java.awt.Color(255, 204, 51));
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setText("Ajouter");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        AjouterBtn.setBackground(new java.awt.Color(255, 204, 51));
+        AjouterBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        AjouterBtn.setText("Ajouter");
+        AjouterBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AjouterBtnMouseClicked(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(255, 204, 51));
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton3.setText("Supprimer");
+        SupprimerBtn.setBackground(new java.awt.Color(255, 204, 51));
+        SupprimerBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        SupprimerBtn.setText("Supprimer");
+        SupprimerBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SupprimerBtnMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -115,8 +121,8 @@ public class Admin extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(SupprimerBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(AjouterBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(25, 25, 25))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(230, 230, 230)
@@ -135,9 +141,9 @@ public class Admin extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 19, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(AjouterBtn)
                         .addGap(57, 57, 57)
-                        .addComponent(jButton3)
+                        .addComponent(SupprimerBtn)
                         .addGap(62, 62, 62))))
         );
 
@@ -269,10 +275,6 @@ public class Admin extends javax.swing.JFrame {
         jTable1.setModel(DTM);
     }//GEN-LAST:event_jPanel1ComponentShown
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jPanel2ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel2ComponentShown
         PersonneControlleur PC = new PersonneControlleur();
         List<Personne> LSP = new ArrayList<>();
@@ -296,6 +298,31 @@ public class Admin extends javax.swing.JFrame {
           });
         jTable2.setModel(DTM);
     }//GEN-LAST:event_jPanel2ComponentShown
+
+    private void AjouterBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AjouterBtnMouseClicked
+       new AjoutFilm().setVisible(true);
+    }//GEN-LAST:event_AjouterBtnMouseClicked
+
+    private void SupprimerBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SupprimerBtnMouseClicked
+       FilmControlleur FC =new FilmControlleur();
+        DefaultTableModel tableModel =(DefaultTableModel)jTable1.getModel();
+       if(jTable1.getSelectedRowCount()==1){
+           System.out.println(tableModel.getValueAt(jTable1.getSelectedRow(),0));
+           try {
+              if(FC.SupprimerFilm(tableModel.getValueAt(jTable1.getSelectedRow(), 0).toString())){
+                  JOptionPane.showMessageDialog(null,"Film est Supprimé de la base de données");
+                  tableModel.removeRow(jTable1.getSelectedRow());
+              }else{
+                  JOptionPane.showMessageDialog(null,"Erreur dans la suppression du Film");
+              }
+           }catch (Exception E){
+               System.out.println(E.getMessage());
+           }
+
+
+
+       }
+    }//GEN-LAST:event_SupprimerBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -333,8 +360,8 @@ public class Admin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton AjouterBtn;
+    private javax.swing.JButton SupprimerBtn;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
