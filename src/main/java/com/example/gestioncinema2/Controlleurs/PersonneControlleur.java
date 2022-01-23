@@ -36,13 +36,14 @@ public class PersonneControlleur extends ConnexionBD implements IPersonne {
     @Override
     public boolean SignIn(Personne P) throws SQLException, NoSuchAlgorithmException {
         boolean Resultat = true ;
-        String InsertPersonne = "Insert into personne (CIN,Password,Nom,Prenom,Role) values(?,?,?,?,?)";
+        String InsertPersonne = "Insert into personne (CIN,Password,Nom,Prenom,Role,mail) values(?,?,?,?,?,?)";
         PreparedStatement PS = conn.prepareStatement(InsertPersonne);
         PS.setString(1,P.getCIN());
         PS.setString(2,HashPassword(P.getPassword()));
         PS.setString(3,P.getNom());
         PS.setString(4,P.getPrenom());
         PS.setString(5,P.getRole());
+        PS.setString(6,P.getMail());
         if(verifUser(P.getCIN())){
             int i=PS.executeUpdate();
             if(i>0){
@@ -84,17 +85,21 @@ public class PersonneControlleur extends ConnexionBD implements IPersonne {
     public List<Personne> GetAllUsers() throws SQLException {
         List<Personne> Ls = new ArrayList<>();
         String sql= "Select * from personne ";
-        ResultSet Rs = conn.createStatement().executeQuery(sql);
-        while (Rs.next()){
-            Personne P = new Personne();
-            P.setCIN(Rs.getString(2));
-            P.setPrenom(Rs.getString(5));
-            P.setNom(Rs.getString(4));
-            P.setRole(Rs.getString(6));
-            P.setIdP(Rs.getInt(1));
-            P.setMail(Rs.getString(7));
+        try {
+            ResultSet Rs = conn.createStatement().executeQuery(sql);
+            while (Rs.next()) {
+                Personne P = new Personne();
+                P.setCIN(Rs.getString(2));
+                P.setPrenom(Rs.getString(5));
+                P.setNom(Rs.getString(4));
+                P.setRole(Rs.getString(6));
+                P.setIdP(Rs.getInt(1));
+                P.setMail(Rs.getString(7));
 
-            Ls.add(P);
+                Ls.add(P);
+            }
+        }catch (Exception E){
+            System.out.println(E.getMessage());
         }
         return Ls;
     }

@@ -267,9 +267,9 @@ public class Films extends javax.swing.JFrame {
     }//GEN-LAST:event_formComponentShown
 
     public static void SendMail(String mail){
-        final String username="mabrouki552";  // partie 9bal xyz@gmail.com
-        final String password="gdd^T&S&R=8s\\N/t";
-        String from ="mabrouki552@gmail.com";
+        final String username="oumaimamabrouki99";
+        final String password="maimaaa3799";
+        String from ="oumaimamabrouki99@gmail.com";
         String to = mail ;
         String host = "localhost";
         Properties properties = new Properties();
@@ -291,7 +291,7 @@ public class Films extends javax.swing.JFrame {
             message.setSubject("Bienvenue dans notre Cinema");
             message.setText("Hello sir !");
             Transport.send(message);
-            System.out.println("WEREREREREY");
+            //System.out.println("yeees");
         }catch (Exception E ){
             System.out.println(E.getMessage());
         }

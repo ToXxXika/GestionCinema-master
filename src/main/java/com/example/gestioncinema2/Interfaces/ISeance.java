@@ -9,4 +9,5 @@ public interface ISeance {
     boolean AjouterSeance(Seance S);
     Seance ChercherSeance(int idSeance) throws SQLException;
     List<Seance>AllSeances()throws SQLException ;
+    boolean SupprimerSeance(String titre) throws SQLException;
 }

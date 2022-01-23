@@ -46,8 +46,6 @@ public class FilmControlleur extends ConnexionBD implements IFilm {
             System.out.println(Delete);
             Statement PS = con.createStatement();
             int row = PS.executeUpdate(Delete);
-            // if row = 1 or more that means that request is done perfectly in the database if 0 or <0 that means there is a problem which
-            // The Exception will handle it
             if (row > 0) {
                 System.out.println("Film Supprimé");
             }
@@ -134,19 +132,22 @@ public class FilmControlleur extends ConnexionBD implements IFilm {
         List<Film> LsFilm = new ArrayList<>();
         Statement S = con.createStatement();
         ResultSet RS = S.executeQuery(getFilmBySeance);
-        if(!RS.next()){
-            System.out.println("Aucun Film est disponible pour la reservation ");
-            return null;
-        }else {
-            Film F = new Film();
-            F.setDescription(RS.getString(4));
-            F.setTitre(RS.getString(1));
-            F.setNomRealisateur(RS.getString(2));
-            F.setAnneeRealisation(RS.getString(3));
-            F.setDuree(RS.getFloat(5));
-            F.setPrix(RS.getFloat(6));
-            LsFilm.add(F);
-        }
+           if(!RS.next()){
+               System.out.println("change me");
+           }else{
+               do {
+                   Film F = new Film();
+                   F.setDescription(RS.getString(4));
+                   F.setTitre(RS.getString(1));
+                   F.setNomRealisateur(RS.getString(2));
+                   F.setAnneeRealisation(RS.getString(3));
+                   F.setDuree(RS.getFloat(5));
+                   F.setPrix(RS.getFloat(6));
+                   LsFilm.add(F);
+               }while (RS.next());
+           }
         return LsFilm;
+        }
+
     }
-}
+

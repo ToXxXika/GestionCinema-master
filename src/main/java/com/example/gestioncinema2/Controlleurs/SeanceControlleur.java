@@ -95,5 +95,22 @@ public class SeanceControlleur extends ConnexionBD implements ISeance {
         }
              return LS ;
          }
-    }
+
+    @Override
+    public boolean SupprimerSeance(String titre) throws SQLException {
+        boolean Resultat = true;
+        try {
+            String Delete = "DELETE FROM seance WHERE Film='"+titre+"'";
+            System.out.println(Delete);
+            Statement PS = con.createStatement();
+            int row = PS.executeUpdate(Delete);
+            if (row > 0) {
+                System.out.println("Séance annulée !! ");
+            }
+        } catch (SQLException SE) {
+            System.out.println(SE.getMessage());
+            Resultat = false;
+        }
+        return Resultat;
+    }}
 

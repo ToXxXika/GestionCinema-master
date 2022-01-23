@@ -46,22 +46,24 @@ public class Inscription extends JFrame {
         jLabel6 = new javax.swing.JLabel();
         CmdpTxt = new javax.swing.JPasswordField();
         Inscrire = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        mailTxt = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 51, 51));
-        jPanel1.setForeground(new java.awt.Color(255, 204, 51));
+        jPanel1.setBackground(new java.awt.Color(255, 204, 51));
+        jPanel1.setForeground(new java.awt.Color(0, 51, 51));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 204, 51));
+        jLabel1.setForeground(new java.awt.Color(0, 51, 51));
         jLabel1.setText("Inscription");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 204, 51));
+        jLabel2.setForeground(new java.awt.Color(0, 51, 51));
         jLabel2.setText("Nom :");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 204, 51));
+        jLabel3.setForeground(new java.awt.Color(0, 51, 51));
         jLabel3.setText("Prenom :");
 
         PrenomTxt.addActionListener(new java.awt.event.ActionListener() {
@@ -71,17 +73,17 @@ public class Inscription extends JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 204, 51));
+        jLabel4.setForeground(new java.awt.Color(0, 51, 51));
         jLabel4.setText("CIN :");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 204, 51));
+        jLabel5.setForeground(new java.awt.Color(0, 51, 51));
         jLabel5.setText("Mot de passe :");
 
         MdpTxt.setText("jPasswordField1");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 204, 51));
+        jLabel6.setForeground(new java.awt.Color(0, 51, 51));
         jLabel6.setText("Confirmer : ");
 
         CmdpTxt.setText("jPasswordField1");
@@ -94,6 +96,10 @@ public class Inscription extends JFrame {
                 InscrireActionPerformed(evt);
             }
         });
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 51, 51));
+        jLabel7.setText("Email :");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -111,20 +117,20 @@ public class Inscription extends JFrame {
                             .addComponent(jLabel2))
                         .addGap(31, 31, 31)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(MdpTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(132, 132, 132)
-                                .addComponent(jLabel6))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(NomTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                                    .addComponent(CinTxt))
-                                .addGap(111, 111, 111)
-                                .addComponent(jLabel3)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PrenomTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CmdpTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(NomTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                                .addComponent(CinTxt))
+                            .addComponent(MdpTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(111, 111, 111)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel7))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(PrenomTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                    .addComponent(CmdpTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                    .addComponent(mailTxt))
                 .addGap(47, 47, 47))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(285, 285, 285)
@@ -145,7 +151,9 @@ public class Inscription extends JFrame {
                 .addGap(102, 102, 102)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(CinTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CinTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(mailTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -179,6 +187,8 @@ public class Inscription extends JFrame {
        String nom = NomTxt.getText();
        String prenom = PrenomTxt.getText();
        String cin = CinTxt.getText();
+       String mail = mailTxt.getText();
+       //System.out.println(mail);
        String Motdepasse = "";
        String ConfirmationMdp = "";
         for (char x: MdpTxt.getPassword()) {
@@ -187,8 +197,8 @@ public class Inscription extends JFrame {
         for (char y:CmdpTxt.getPassword()) {
             ConfirmationMdp=ConfirmationMdp+y;
         }
-        System.out.println(Motdepasse);
-        System.out.println(ConfirmationMdp);
+        //System.out.println(Motdepasse);
+        //System.out.println(ConfirmationMdp);
        PersonneControlleur PC = new PersonneControlleur();
         if(nom.isEmpty()||prenom.isEmpty()||cin.isEmpty()||Motdepasse.isEmpty() ||ConfirmationMdp.isEmpty()){
             JOptionPane.showMessageDialog(null,"Un Champ est vide");
@@ -202,8 +212,11 @@ public class Inscription extends JFrame {
                 P.setNom(nom);
                 P.setPrenom(prenom);
                 P.setRole("Client");
+                P.setMail(mail);
                 if(PC.SignIn(P)){
                     JOptionPane.showMessageDialog(null,"Inscription Reussie");
+                    new Films().setVisible(true);
+                    dispose();
                 }else JOptionPane.showMessageDialog(null,"Erreur dans l'inscription ");
             }catch (Exception E ){
                 System.out.println(E.getMessage());
@@ -262,6 +275,8 @@ public class Inscription extends JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField mailTxt;
     // End of variables declaration//GEN-END:variables
 }
